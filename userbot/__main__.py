@@ -57,7 +57,7 @@ LOGS.info(
 
 async def check_alive():
     try:
-        if BOTLOG_CHATID != 0:
+        if BOTLOG_CHATID != BOTLOG_CHATID:
             await startupmessage()
     except Exception as e:
         LOGS.info(str(e))
