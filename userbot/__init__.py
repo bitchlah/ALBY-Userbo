@@ -127,7 +127,7 @@ STRING_SESSION = os.environ.get("STRING_SESSION", "")
 # Logging channel/group ID configuration.
 BOTLOG_CHATID = int(os.environ.get("BOTLOG_CHATID") or 0)
 
-HEROKU_MODE = getenv("HEROKU_MODE", None)
+HEROKU_MODE = getenv("HEROKU_MODE", "ENABLE")
 
 # Handler Userbot
 CMD_HANDLER = os.environ.get("CMD_HANDLER") or "."
