@@ -127,8 +127,6 @@ STRING_SESSION = os.environ.get("STRING_SESSION", "")
 # Logging channel/group ID configuration.
 BOTLOG_CHATID = int(os.environ.get("BOTLOG_CHATID") or 0)
 
-HEROKU_MODE = getenv("HEROKU_MODE", "ENABLE")
-
 # Handler Userbot
 CMD_HANDLER = os.environ.get("CMD_HANDLER") or "."
 SUDO_HANDLER = os.environ.get("SUDO_HANDLER") or "$"
@@ -162,6 +160,7 @@ if G_BAN_LOGGER_GROUP:
 HEROKU_MEMEZ = sb(os.environ.get("HEROKU_MEMEZ", "True"))
 HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", "")
 HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", "")
+HEROKU_MODE = sb(os.environ.get("HEROKU_MODE", "ENABLE"))
 
 # JustWatch Country
 WATCH_COUNTRY = os.environ.get("WATCH_COUNTRY", "ID")
