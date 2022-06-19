@@ -208,6 +208,10 @@ async def vc_play(event):
 
 @alby_cmd(pattern="vplay(?:\\s|$)([\\s\\S]*)")
 async def vc_vplay(event):
+    if HEROKU_MODE == "ENABLE":
+        await m.reply_text("__Currently Heroku Mode is ENABLED so You Can't Stream Video because Video Streaming Cause of Banning Your Heroku Account__.")
+        return
+    await m.delete()
     title = event.pattern_match.group(1)
     replied = await event.get_reply_message()
     sender = await event.get_sender()
