@@ -22,7 +22,7 @@ from telethon.tl.functions.users import GetFullUserRequest
 from youtubesearchpython import VideosSearch
 
 from userbot import CMD_HANDLER as cmd
-from userbot import VVIP, CMD_HELP
+from userbot import VVIP, CMD_HELP, HEROKU_MODE
 from userbot import PLAY_PIC as fotoplay
 from userbot import QUEUE_PIC as ngantri
 from userbot import call_py
@@ -116,6 +116,8 @@ async def skip_current_song(chat_id: int):
 
 @alby_cmd(pattern="play(?:\\s|$)([\\s\\S]*)")
 async def vc_play(event):
+    if HEROKU_MODE == "ENABLE":
+        return
     title = event.pattern_match.group(1)
     replied = await event.get_reply_message()
     sender = await event.get_sender()
