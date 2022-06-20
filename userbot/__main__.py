@@ -28,7 +28,6 @@ from userbot.utils import autobot, autopilot, startupmessage
 try:
     bot.start()
     call_py.start()
-    tgbot.start()
     user = bot.get_me()
     albyblacklist = requests.get(
         "https://raw.githubusercontent.com/PunyaAlby/ALBYBL/master/albyblacklist.json"
