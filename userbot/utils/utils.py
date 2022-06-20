@@ -269,11 +269,12 @@ async def create_supergroup(group_name, client, botusername, descript):
 
 
 async def autopilot():
+    LOGS.info("TUNGGU SEBENTAR. SEDANG MEMBUAT GROUP LOG USERBOT UNTUK ANDA")
     if BOTLOG_CHATID and str(BOTLOG_CHATID).startswith("-100"):
         return
-    k = []  # To Refresh private ids
+    y = []  # To Refresh private ids
     async for x in bot.iter_dialogs():
-        k.append(x.id)
+        y.append(x.id)
     if BOTLOG_CHATID:
         try:
             await bot.get_entity(int("BOTLOG_CHATID"))
@@ -283,14 +284,14 @@ async def autopilot():
     try:
         r = await bot(
             CreateChannelRequest(
-                title="ᴀʟʙʏ ʟᴏɢs",
-                about="ᴍʏ ᴀʟʙʏ ʟᴏɢs ɢʀᴏᴜᴘ\n\n Join @ruangprojects",
+                title="ᴀʟʙʏ-Usᴇʀʙᴏᴛ Lᴏɢs",
+                about="» ᴀʟʙʏ ʟᴏɢs ɢʀᴏᴜᴘ Created by: ALBY-Userbot\n\n» Support : @ruangdiskusikami\n» UPDATES: @ruangprojects",
                 megagroup=True,
             ),
         )
     except ChannelsTooMuchError:
         LOGS.info(
-            "Terlalu banyak channel dan grup, hapus salah satu dan restart lagi"
+            "Terlalu Banyak Channel dan Grup yang Kamu Miliki, Hapus Salah Satu Dan Restart Lagi"
         )
         exit(1)
     except BaseException:
@@ -298,11 +299,23 @@ async def autopilot():
             "Terjadi kesalahan, Buat sebuah grup lalu isi id nya di config var BOTLOG_CHATID."
         )
         exit(1)
-    chat_id = r.chats[0].id
-    if not str(chat_id).startswith("-100"):
-        heroku_var["BOTLOG_CHATID"] = "-100" + str(chat_id)
+    chat = r.chats[0]
+    channel = get_peer_id(chat)
+    if isinstance(chat.photo, ChatPhotoEmpty):
+        photo = await download_file(
+            "https://telegra.ph/file/cbe826936d4de9ec1838a.jpg"
+        )
+        ll = await bot.upload_file(photo)
+        try:
+            await bot(
+                EditPhotoRequest(int(channel), InputChatUploadedPhoto(ll))
+            )
+        except BaseException as er:
+            LOGS.exception(er)
+    if not str(chat.id).startswith("-100"):
+        heroku_var["BOTLOG_CHATID"] = "-100" + str(chat.id)
     else:
-        heroku_var["BOTLOG_CHATID"] = str(chat_id)
+        heroku_var["BOTLOG_CHATID"] = str(chat.id)
     rights = ChatAdminRights(
         add_admins=True,
         invite_users=True,
