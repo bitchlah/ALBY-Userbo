@@ -12,10 +12,9 @@ from random import randint
 
 import heroku3
 from telethon.tl.functions.contacts import UnblockRequest
-from telethon.errors import ChannelsTooMuchError
-from telethon.tl.functions.channels import CreateChannelRequest, EditPhotoRequest
-from telethon.tl.types import ChatPhotoEmpty, InputChatUploadedPhoto
-from telethon.utils import get_peer_id
+from telethon.tl.functions.channels import (
+    CreateChannelRequest,
+)
 from telethon.tl.types import (
     ChatAdminRights,
 )
@@ -25,7 +24,6 @@ from userbot import (
     CMD_HELP,
     HEROKU_API_KEY,
     HEROKU_APP_NAME,
-    ALIVE_LOGO,
     LOGS,
     bot,
 )
@@ -274,9 +272,9 @@ async def autopilot():
     LOGS.info("TUNGGU SEBENTAR. SEDANG MEMBUAT GROUP LOG USERBOT UNTUK ANDA")
     if BOTLOG_CHATID and str(BOTLOG_CHATID).startswith("-100"):
         return
-    y = []  # To Refresh private ids
+    k = []  # To Refresh private ids
     async for x in bot.iter_dialogs():
-        y.append(x.id)
+        k.append(x.id)
     if BOTLOG_CHATID:
         try:
             await bot.get_entity(int("BOTLOG_CHATID"))
@@ -301,21 +299,11 @@ async def autopilot():
             "Terjadi kesalahan, Buat sebuah grup lalu isi id nya di config var BOTLOG_CHATID."
         )
         exit(1)
-    chat = r.chats[0]
-    channel = get_peer_id(chat)
-    if isinstance(chat.photo, ChatPhotoEmpty):
-        photo = await ALIVE_LOGO
-        ll = await bot.upload_file(photo)
-        try:
-            await bot(
-                EditPhotoRequest(int(channel), InputChatUploadedPhoto(ll))
-            )
-        except BaseException as er:
-            LOGS.exception(er)
-    if not str(chat.id).startswith("-100"):
-        heroku_var["BOTLOG_CHATID"] = "-100" + str(chat.id)
+    chat_id = r.chats[0].id
+    if not str(chat_id).startswith("-100"):
+        heroku_var["BOTLOG_CHATID"] = "-100" + str(chat_id)
     else:
-        heroku_var["BOTLOG_CHATID"] = str(chat.id)
+        heroku_var["BOTLOG_CHATID"] = str(chat_id)
     rights = ChatAdminRights(
         add_admins=True,
         invite_users=True,
