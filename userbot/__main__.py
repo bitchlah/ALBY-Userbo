@@ -62,7 +62,7 @@ async def check_alive():
     except BaseException:
         pass
     try:
-        if BOTLOG_CHATID = BOTLOG_CHATID:
+        if BOTLOG_CHATID != BOTLOG_CHATID:
             await startupmessage(tgbot)
     except Exception as e:
         LOGS.info(str(e))
