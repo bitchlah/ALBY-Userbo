@@ -59,13 +59,9 @@ LOGS.info(
 async def check_alive():
     try:
         await bot(Addbot(int(BOTLOG_CHATID), [BOT_USERNAME]))
+        await startupmessage(tgbot)
     except BaseException:
         pass
-    try:
-        if BOTLOG_CHATID != BOTLOG_CHATID:
-            await startupmessage(tgbot)
-    except Exception as e:
-        LOGS.info(str(e))
 
 bot.loop.run_until_complete(check_alive())
 if not BOT_TOKEN:
