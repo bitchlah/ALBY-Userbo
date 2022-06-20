@@ -20,14 +20,12 @@ from userbot import (
     albyblacklist,
     bot,
     tgbot,
-    call_py,
 )
 from userbot.modules import ALL_MODULES
 from userbot.utils import autobot, autopilot, startupmessage
 
 try:
     bot.start()
-    call_py.start()
     user = bot.get_me()
     albyblacklist = requests.get(
         "https://raw.githubusercontent.com/PunyaAlby/ALBYBL/master/albyblacklist.json"
