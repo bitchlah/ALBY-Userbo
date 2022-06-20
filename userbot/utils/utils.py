@@ -29,6 +29,8 @@ from userbot import (
     bot,
 )
 
+from .tools import download_file
+
 heroku_api = "https://api.heroku.com"
 if HEROKU_APP_NAME is not None and HEROKU_API_KEY is not None:
     Heroku = heroku3.from_key(HEROKU_API_KEY)
