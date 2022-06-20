@@ -25,11 +25,10 @@ from userbot import (
     CMD_HELP,
     HEROKU_API_KEY,
     HEROKU_APP_NAME,
+    ALIVE_LOGO,
     LOGS,
     bot,
 )
-
-from .tools import download_file
 
 heroku_api = "https://api.heroku.com"
 if HEROKU_APP_NAME is not None and HEROKU_API_KEY is not None:
@@ -305,9 +304,7 @@ async def autopilot():
     chat = r.chats[0]
     channel = get_peer_id(chat)
     if isinstance(chat.photo, ChatPhotoEmpty):
-        photo = await download_file(
-            "https://telegra.ph/file/cbe826936d4de9ec1838a.jpg"
-        )
+        photo = await ALIVE_LOGO
         ll = await bot.upload_file(photo)
         try:
             await bot(
